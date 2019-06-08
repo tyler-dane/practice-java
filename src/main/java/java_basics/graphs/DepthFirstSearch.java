@@ -19,15 +19,15 @@ class Vertex {
 
 class Graph {
     public final int MAX_VERTS = 20;
-    public Vertex vertexList[];
+    public BVertex BVertexList[];
     private int adjMat[][];      // adjacency matrix
     private int nVerts;          // current number of vertices
     private  StackX theStack;
 
     public Graph() {
-        vertextList = new Vertex[MAX_VERTS];
+        //vertextList = new BVertex[MAX_VERTS];
         adjMat = new int[MAX_VERTS][MAX_VERTS];
-        nverts = 0;
+        int nverts = 0;
         for(int j=0; j<MAX_VERTS; j++)
             for(int k=0; k<MAX_VERTS; k++)
                 adjMat[j][k] = 0;
@@ -35,7 +35,7 @@ class Graph {
     }
 
     public void addVertex(char label) {
-        vertexList[nVerts++] = new Vertex(label);
+        BVertexList[nVerts++] = new BVertex(label);
     }
 
     public void addEdge(int start, int end) {
@@ -44,12 +44,12 @@ class Graph {
     }
 
     public void displayVertex(int v) {
-        System.out.print(vertexList[v].label);
+        System.out.print(BVertexList[v].label);
     }
 
     public void dfs() {
         // use vertex 0 to initialize
-        vertexList[0].wasVisited = true;
+        BVertexList[0].wasVisited = true;
         displayVertex(0);
         theStack.push(0);
 
@@ -61,7 +61,7 @@ class Graph {
             if (v == -1)
                 theStack.pop();
             else {
-                vertexList[v].wasVisited = true;    // mark it
+                BVertexList[v].wasVisited = true;    // mark it
                 displayVertex(v);
                 theStack.push(v);
             }
@@ -69,13 +69,13 @@ class Graph {
 
         // stack is empty, so end search
         for (int j=0; j<nVerts; j++) // reset flags for next search
-            vertexList[j].wasVisited = false;
+            BVertexList[j].wasVisited = false;
     }
 
     /**returns an unvisited vertex adjacent to v*/
     public int getAdjUnvisitedVertex(int v) {
         for (int j=0; j<nVerts; j++)
-            if (adjMat[v][j]==1 && vertexList[j].wasVisited == false)
+            if (adjMat[v][j]==1 && BVertexList[j].wasVisited == false)
                 return j;
         return -1;
     }
@@ -117,12 +117,12 @@ class StackX {
     }
 
     /** remove top item from stack*/
-    public void pop() {
+    public int pop() {
         return st[top--];
     }
 
     /** return item at top of stack*/
-    public int peak() {
+    public int peek() {
         return st[top];
     }
 
